@@ -20,6 +20,16 @@ npm run build          # genera dist/
 npm run preview
 ```
 
+## Publicar (GitHub Pages)
+
+Sitio: https://aguslenga123.github.io/Enjoyyourlife/
+
+```bash
+npm run deploy   # compila con base /Enjoyyourlife y publica dist/ en la rama gh-pages
+```
+
+GitHub Pages no permite headers HTTP propios: ahí aplica la CSP del `<meta>`; `public/_headers` y `vercel.json` sirven si se migra a Netlify, Cloudflare o Vercel.
+
 ## Variables de entorno
 
 | Variable | Descripción |
