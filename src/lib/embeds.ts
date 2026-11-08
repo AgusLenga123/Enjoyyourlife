@@ -33,7 +33,10 @@ const LOCAL_VIDEO = /^\/[\w\-./]+\.(mp4|webm)$/i;
 
 export function videoEmbed(raw: string | undefined): VideoEmbed | null {
   if (!raw) return null;
-  if (LOCAL_VIDEO.test(raw) && !raw.includes('..')) return { provider: 'file', src: raw };
+  if (LOCAL_VIDEO.test(raw) && !raw.includes('..')) {
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    return { provider: 'file', src: `${base}${raw}` };
+  }
   let url: URL;
   try {
     url = new URL(raw);

@@ -3,11 +3,13 @@ import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 
-const { SITE_URL } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
+const { SITE_URL, BASE_PATH } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL || 'https://enjoyourlife.english',
+  // Sub-path when hosted on GitHub Pages (set BASE_PATH=/Enjoyyourlife in the workflow)
+  base: BASE_PATH || '/',
   output: 'static',
   trailingSlash: 'ignore',
 
