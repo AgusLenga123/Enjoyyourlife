@@ -1,0 +1,53 @@
+---
+import { CodeXml, MessageSquareMore, Users } from '@lucide/astro';
+import { pain } from '../data/content';
+
+const icons = { message: MessageSquareMore, code: CodeXml, users: Users };
+---
+
+<section id="problema" class="relative overflow-hidden bg-cream py-20 text-ink sm:py-28">
+  <div
+    class="absolute -top-32 right-0 size-[32rem] rounded-full bg-gold/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+      <h2
+        data-reveal
+        class="text-center text-3xl leading-tight font-bold tracking-tight text-navy sm:text-5xl lg:text-left"
+      >
+        {pain.titleLead} <span class="text-gold-700">{pain.titleHighlight}</span>
+      </h2>
+      <p
+        data-reveal
+        data-reveal-delay="0.1"
+        class="rounded-2xl border border-navy/5 bg-paper p-6 text-base leading-relaxed text-ink/75 shadow-sm sm:p-8 sm:text-lg"
+      >
+        {pain.intro}
+      </p>
+    </div>
+
+    <ul class="mt-10 grid gap-4 sm:mt-14 md:grid-cols-3 md:gap-6">
+      {
+        pain.cards.map((c, i) => {
+          const Icon = icons[c.icon];
+          return (
+            <li
+              data-reveal
+              data-reveal-delay={i * 0.1}
+              class="group relative flex gap-5 overflow-hidden rounded-2xl border border-navy/5 bg-paper p-6 shadow-sm transition-[transform,box-shadow,border-color] duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-gold/50 hover:shadow-[0_24px_50px_-20px_rgb(18_54_100/0.35)] sm:p-7"
+            >
+              <span class="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-gold-600 to-gold transition-transform duration-500 ease-out-expo group-hover:scale-x-100" aria-hidden="true" />
+              <span class="grid size-12 shrink-0 place-items-center rounded-xl bg-white text-navy shadow-sm ring-1 ring-navy/10 transition-colors duration-300 group-hover:bg-navy group-hover:text-gold">
+                <Icon class="size-6" aria-hidden="true" stroke-width={1.7} />
+              </span>
+              <p class="text-[15px] leading-relaxed text-ink/80 sm:text-base">{c.text}</p>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

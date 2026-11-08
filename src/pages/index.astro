@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Pain from '../components/Pain.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import Booking from '../components/Booking.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<Layout
+  title="Enjoyourlife.English | Inglés profesional para Developers con experiencia"
+  description="Prepará tu comunicación en inglés para entrevistas técnicas y oportunidades internacionales. Programa 1:1 con simulaciones, roleplays y práctica con IA, exclusivo para Developers."
+>
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <Marquee />
+    <Pain />
+    <Testimonials />
+    <Faq />
+    <Booking />
+    <FinalCta />
+  </main>
+  <Footer />
+  <StickyCta />
+  <WhatsAppButton />
+</Layout>
+
+<script>
+  import '../scripts/main.ts';
+</script>

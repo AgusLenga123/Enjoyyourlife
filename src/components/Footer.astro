@@ -1,0 +1,24 @@
+---
+import Logo from './Logo.astro';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+import { contact } from '../data/content';
+import { whatsappUrl } from '../lib/contact';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10 bg-navy-950 pt-10 pb-28 sm:pb-10">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
+    <Logo />
+    <nav aria-label="Pie de página" class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/60">
+      <a href="#casos" class="transition-colors hover:text-gold">Casos de éxito</a>
+      <a href="#preguntas" class="transition-colors hover:text-gold">Preguntas</a>
+      <a href="#agenda" class="transition-colors hover:text-gold">Agendá tu llamada</a>
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 transition-colors hover:text-gold">
+        <WhatsAppIcon class="size-4" />
+        {contact.phoneDisplay}
+      </a>
+    </nav>
+    <p class="text-sm text-white/40">© {year} Enjoyourlife.English</p>
+  </div>
+</footer>

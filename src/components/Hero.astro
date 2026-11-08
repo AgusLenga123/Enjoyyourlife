@@ -1,0 +1,105 @@
+---
+import { ArrowRight, ChartNoAxesCombined, Monitor, Repeat2 } from '@lucide/astro';
+import { features, hero } from '../data/content';
+import Vsl from './Vsl.astro';
+
+const icons = { monitor: Monitor, roleplay: Repeat2, chart: ChartNoAxesCombined };
+const leadWords = hero.titleLead.split(' ');
+const highlightWords = hero.titleHighlight.split(' ');
+---
+
+<section id="top" class="relative isolate overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28">
+  <!-- Ambient background -->
+  <div class="grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div
+    class="absolute -top-40 left-1/2 -z-10 size-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgb(42_93_156/0.55),transparent_60%)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="animate-float absolute top-[30%] -left-40 -z-10 size-[28rem] rounded-full bg-gold/10 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="animate-float absolute top-[10%] -right-40 -z-10 size-[24rem] rounded-full bg-navy-500/30 blur-3xl [animation-delay:-4s]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="mx-auto max-w-6xl px-4 text-center sm:px-6">
+    <p
+      data-hero-badge
+      class="inline-flex max-w-full items-center gap-2 rounded-full bg-gold px-4 py-2 text-[11px] font-extrabold tracking-wide text-navy uppercase shadow-[0_0_40px_-10px_rgb(216_188_138/0.7)] sm:px-7 sm:py-3 sm:text-base"
+    >
+      <span class="relative flex size-2 shrink-0 max-sm:hidden" aria-hidden="true">
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-navy/60"></span>
+        <span class="relative inline-flex size-2 rounded-full bg-navy"></span>
+      </span>
+      {hero.badge}
+    </p>
+
+    <h1
+      class="mx-auto mt-6 max-w-6xl text-[2.15rem] leading-[1.08] font-bold tracking-tight sm:mt-8 sm:text-5xl lg:text-[4.25rem]"
+      aria-label={`${hero.titleLead} ${hero.titleHighlight}`}
+    >
+      {
+        leadWords.map((w) => (
+          <span class="inline-block overflow-hidden pb-[0.12em] align-bottom" aria-hidden="true">
+            <span data-word class="inline-block">
+              {w}&nbsp;
+            </span>
+          </span>
+        ))
+      }
+      {
+        highlightWords.map((w, i) => (
+          <span class="inline-block overflow-hidden pb-[0.12em] align-bottom" aria-hidden="true">
+            <span data-word class="text-gold-gradient inline-block">
+              {w}
+              {i < highlightWords.length - 1 && <>&nbsp;</>}
+            </span>
+          </span>
+        ))
+      }
+    </h1>
+
+    <p
+      data-hero-sub
+      class="mx-auto mt-6 max-w-3xl text-base leading-relaxed font-semibold text-white/85 sm:mt-8 sm:text-xl"
+    >
+      {hero.subtitle}
+    </p>
+
+    <div class="mt-10 sm:mt-14">
+      <Vsl />
+    </div>
+
+    <div class="mt-10 sm:mt-14" data-reveal>
+      <a href="#agenda" class="btn-gold w-full max-w-3xl text-base sm:w-auto">
+        {hero.cta}
+        <ArrowRight class="arrow size-5 shrink-0" aria-hidden="true" />
+      </a>
+    </div>
+
+    <ul class="mx-auto mt-14 grid max-w-5xl gap-4 text-left sm:mt-20 md:grid-cols-3 md:gap-6">
+      {
+        features.map((f, i) => {
+          const Icon = icons[f.icon];
+          return (
+            <li
+              data-reveal
+              data-reveal-delay={i * 0.1}
+              class="spotlight group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold/40 sm:p-6"
+            >
+              <span class="grid size-14 shrink-0 place-items-center rounded-xl border border-gold/30 bg-gold/10 text-gold transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6">
+                <Icon class="size-7" aria-hidden="true" stroke-width={1.6} />
+              </span>
+              <span class="font-display text-lg leading-snug font-bold">{f.title}</span>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

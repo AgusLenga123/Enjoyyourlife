@@ -1,0 +1,42 @@
+---
+import { CalendarCheck } from '@lucide/astro';
+import Logo from './Logo.astro';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-[padding] duration-500 ease-out-expo sm:px-5 sm:pt-4"
+>
+  <div
+    data-header-shell
+    class="mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-2xl border border-transparent px-3 py-2.5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out-expo sm:px-5 sm:py-3 data-[scrolled=true]:border-white/10 data-[scrolled=true]:bg-navy-900/85 data-[scrolled=true]:shadow-[0_10px_40px_-15px_rgb(0_0_0/0.5)] data-[scrolled=true]:backdrop-blur-xl"
+  >
+    <Logo compact />
+
+    <nav aria-label="Principal" class="flex items-center gap-1 sm:gap-2">
+      <a
+        href="#casos"
+        class="hidden rounded-lg px-3 py-2 text-sm font-semibold text-white/75 transition-colors hover:text-white lg:inline-block"
+        >Casos de éxito</a
+      >
+      <a
+        href="#preguntas"
+        class="hidden rounded-lg px-3 py-2 text-sm font-semibold text-white/75 transition-colors hover:text-white lg:inline-block"
+        >Preguntas</a
+      >
+      <a
+        href="#agenda"
+        class="group ml-1 inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-gold/40 px-2.5 py-2 text-xs sm:gap-2 sm:text-sm font-display font-bold text-gold uppercase italic transition-all duration-300 hover:border-gold hover:bg-gold hover:text-navy sm:px-4"
+      >
+        <CalendarCheck class="size-4" aria-hidden="true" />
+        <span class="max-sm:hidden">Agendá tu llamada</span>
+        <span class="sm:hidden">Agendar</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Scroll progress -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-0.5 overflow-hidden" aria-hidden="true">
+    <div data-progress class="h-full origin-left scale-x-0 bg-linear-to-r from-gold-600 via-gold to-gold-300"></div>
+  </div>
+</header>

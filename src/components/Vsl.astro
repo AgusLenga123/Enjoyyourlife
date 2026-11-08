@@ -1,0 +1,20 @@
+---
+import { PUBLIC_VSL_URL } from 'astro:env/client';
+import { links } from '../data/content';
+import VideoFacade from './VideoFacade.astro';
+---
+
+<div class="relative mx-auto w-full max-w-4xl" data-reveal="scale">
+  <!-- glow -->
+  <div
+    class="absolute -inset-4 -z-10 rounded-[2rem] bg-linear-to-br from-gold/40 via-gold/5 to-navy-500/40 opacity-70 blur-2xl"
+    aria-hidden="true"
+  >
+  </div>
+  <VideoFacade
+    url={PUBLIC_VSL_URL || links.vsl}
+    title="Video de presentación — Enjoyourlife.English"
+    label="Mirá cómo funciona el programa"
+    pendingLabel="Video de presentación — próximamente"
+  />
+</div>

@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { brand } from '../data/content';
+
+interface Props {
+  class?: string;
+  compact?: boolean;
+}
+const { class: className = '', compact = false } = Astro.props;
+---
+
+<a href="#top" class:list={['group inline-flex items-center gap-2.5 sm:gap-3', className]} aria-label={`${brand.short} — inicio`}>
+  <Image
+    src={logo}
+    alt=""
+    width={84}
+    height={72}
+    loading="eager"
+    class="h-7 w-auto sm:h-9 transition-transform duration-500 ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
+  />
+  <span
+    class:list={[
+      'font-sans text-[15px] font-bold tracking-wide text-gold sm:text-lg',
+      compact && 'max-[440px]:text-[13px] max-[340px]:hidden',
+    ]}
+  >
+    {brand.name}
+  </span>
+</a>

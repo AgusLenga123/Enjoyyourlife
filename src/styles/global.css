@@ -1,0 +1,222 @@
+@import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+
+@import '@fontsource/open-sauce-one/latin-500.css';
+@import '@fontsource/open-sauce-one/latin-600.css';
+@import '@fontsource/open-sauce-one/latin-700.css';
+@import '@fontsource/open-sauce-one/latin-700-italic.css';
+@import '@fontsource-variable/open-sans/index.css';
+
+@theme {
+  --color-navy-950: #071a33;
+  --color-navy-900: #0b2447;
+  --color-navy-800: #0f2d57;
+  --color-navy: #123664;
+  --color-navy-600: #1c4a82;
+  --color-navy-500: #2a5d9c;
+
+  --color-gold: #d8bc8a;
+  --color-gold-300: #ecd9b4;
+  --color-gold-200: #f4e8d1;
+  --color-gold-600: #c39d5e;
+  --color-gold-700: #a07d42;
+
+  --color-cream: #fffff9;
+  --color-paper: #f5f3ee;
+  --color-ink: #0d1b2e;
+
+  --font-display: 'Open Sauce One', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Open Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shimmer: shimmer 6s ease-in-out infinite;
+  --animate-float: float 8s ease-in-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(0, -24px, 0) scale(1.05);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+    interpolate-size: allow-keywords;
+  }
+  html.lenis {
+    scroll-behavior: auto;
+  }
+  body {
+    @apply bg-navy font-sans text-white antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    @apply bg-gold text-navy;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-gold;
+  }
+}
+
+@layer components {
+  /* "—— CASOS DE ÉXITO" style eyebrow from the design */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-display text-sm font-bold tracking-tight uppercase italic sm:text-base;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-0.5 w-8 rounded-full bg-current;
+  }
+
+  .text-gold-gradient {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-gold-600) 0%,
+      var(--color-gold-300) 30%,
+      var(--color-gold) 55%,
+      var(--color-gold-300) 80%,
+      var(--color-gold-600) 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    @apply animate-shimmer;
+  }
+
+  /* Primary gold call-to-action */
+  .btn-gold {
+    @apply relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gold px-6 py-4 text-center font-sans font-bold text-navy shadow-[0_10px_40px_-10px_rgb(216_188_138/0.6)] transition-[transform,box-shadow,background-color] duration-300 ease-out-expo sm:px-10 sm:py-5 sm:text-lg;
+  }
+  .btn-gold:hover {
+    @apply -translate-y-0.5 bg-gold-300 shadow-[0_18px_50px_-12px_rgb(216_188_138/0.75)];
+  }
+  .btn-gold::after {
+    content: '';
+    @apply absolute inset-y-0 -left-1/2 -z-10 w-1/3 -skew-x-12 bg-white/40 blur-md transition-transform duration-700 ease-out-expo;
+    transform: translateX(-150%);
+  }
+  .btn-gold:hover::after {
+    transform: translateX(500%);
+  }
+  .btn-gold .arrow {
+    @apply transition-transform duration-300 ease-out-expo;
+  }
+  .btn-gold:hover .arrow {
+    @apply translate-x-1;
+  }
+
+  /* Mouse-follow spotlight used by cards (vars set from JS via CSSOM) */
+  .spotlight {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(
+      420px circle at var(--mx) var(--my),
+      rgb(216 188 138 / 0.16),
+      transparent 60%
+    );
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+}
+
+/* FAQ: smooth native <details> open/close where supported */
+details.faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.45s var(--ease-out-expo),
+    content-visibility 0.45s allow-discrete;
+}
+details.faq[open]::details-content {
+  block-size: auto;
+}
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Keep the WhatsApp bubble clear of the sticky CTA bar when they would overlap */
+@media (max-width: 1100px) {
+  body:has(#sticky-cta[data-visible='true']) #wa-float {
+    translate: 0 -5.25rem;
+  }
+}
+@media (min-width: 640px) and (max-width: 1100px) {
+  body:has(#sticky-cta[data-visible='true']) #wa-float {
+    translate: 0 -6.5rem;
+  }
+}
+
+/* Scroll reveal: hide only when JS can reveal it again */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal],
+  [data-hero-badge],
+  [data-hero-sub] {
+    opacity: 0;
+  }
+  [data-word] {
+    transform: translateY(110%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { Video, X } from '@lucide/astro';
+import logo from '../assets/logo.png';
+import { stickyCta } from '../data/content';
+---
+
+<!--
+  Floating call-to-action that slides in while the visitor reads the testimonials
+  (inspired by contentcapital.group). Visibility is driven by src/scripts/main.ts.
+-->
+<div
+  id="sticky-cta"
+  data-visible="false"
+  class="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-[transform,opacity,filter] duration-700 ease-out-expo data-[visible=false]:translate-y-[120%] data-[visible=false]:opacity-0 data-[visible=false]:blur-sm sm:px-4 sm:pb-5"
+  aria-hidden="true"
+  inert
+>
+  <div
+    class="pointer-events-auto relative flex w-full max-w-4xl items-center gap-3 overflow-hidden rounded-2xl border border-gold/25 bg-navy-950/90 px-3 py-3 text-white shadow-[0_25px_80px_-15px_rgb(0_0_0/0.75)] ring-1 ring-white/5 backdrop-blur-xl sm:gap-6 sm:px-7 sm:py-5"
+  >
+
+    <Image src={logo} alt="" width={96} height={82} class="h-8 w-auto shrink-0 sm:h-11" />
+
+    <p class="min-w-0 flex-1 font-display leading-tight font-semibold">
+      <span class="text-[14px] sm:hidden">{stickyCta.textMobile}</span>
+      <span class="hidden text-lg leading-snug text-balance sm:inline lg:text-xl">
+        {stickyCta.textLead} <span class="text-gold">{stickyCta.textHighlight}</span>
+      </span>
+    </p>
+
+    <a
+      href="#agenda"
+      class="relative inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-3 text-sm font-bold text-navy shadow-[0_0_30px_-5px_rgb(216_188_138/0.6)] transition-[transform,background-color] duration-300 ease-out-expo hover:-translate-y-0.5 hover:bg-gold-300 sm:px-6 sm:py-3.5 sm:text-[15px]"
+    >
+      <Video class="relative size-4" aria-hidden="true" />
+      <span class="relative max-sm:hidden">{stickyCta.cta}</span>
+      <span class="relative sm:hidden">Agendar</span>
+    </a>
+
+    <button
+      type="button"
+      data-sticky-close
+      class="hidden size-8 shrink-0 cursor-pointer place-items-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white sm:grid"
+      aria-label="Cerrar"
+    >
+      <X class="size-4" aria-hidden="true" />
+    </button>
+  </div>
+</div>
+

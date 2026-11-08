@@ -1,0 +1,111 @@
+---
+import { CalendarCheck, CircleCheck, Clock, ShieldCheck } from '@lucide/astro';
+import { PUBLIC_CALENDLY_URL } from 'astro:env/client';
+import { booking, links } from '../data/content';
+import { calendlyEmbedUrl } from '../lib/embeds';
+import { whatsappUrl } from '../lib/contact';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+const embedDomain = Astro.site?.hostname ?? 'localhost';
+const calendlySrc = calendlyEmbedUrl(PUBLIC_CALENDLY_URL || links.calendly, embedDomain);
+---
+
+<section id="agenda" class="relative isolate overflow-hidden py-20 sm:py-28" data-sticky-cta-hide>
+  <div
+    class="absolute top-1/2 left-1/2 -z-10 size-[56rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(216_188_138/0.12),transparent_60%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <p class="eyebrow text-gold" data-reveal>{booking.eyebrow}</p>
+    <h2
+      data-reveal
+      class="text-gold-gradient mt-5 text-center text-3xl leading-tight font-bold tracking-tight sm:text-5xl lg:text-6xl"
+    >
+      {booking.title}
+    </h2>
+    <p
+      data-reveal
+      data-reveal-delay="0.1"
+      class="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-white/85 sm:text-xl"
+    >
+      {booking.text}
+    </p>
+
+    <ul class="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-semibold text-white/75" data-reveal>
+      <li class="flex items-center gap-2"><Clock class="size-4 text-gold" aria-hidden="true" /> Evaluación 1:1</li>
+      <li class="flex items-center gap-2"><CalendarCheck class="size-4 text-gold" aria-hidden="true" /> Elegí día y horario</li>
+      <li class="flex items-center gap-2"><ShieldCheck class="size-4 text-gold" aria-hidden="true" /> Sin compromiso</li>
+    </ul>
+
+    <div class="relative mx-auto mt-10 max-w-5xl sm:mt-12" data-reveal="scale">
+      <div
+        class="absolute -inset-px -z-10 rounded-[1.6rem] bg-linear-to-br from-gold via-gold/20 to-gold/60 opacity-60 blur-sm"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="relative overflow-hidden rounded-3xl border border-gold/30 bg-white shadow-[0_40px_120px_-30px_rgb(0_0_0/0.7)]"
+        data-calendly
+        data-src={calendlySrc}
+        data-lenis-prevent
+      >
+        <!-- Skeleton shown until Calendly's iframe has loaded -->
+        {calendlySrc && (<div
+          data-calendly-skeleton
+          class="absolute inset-0 grid place-items-center bg-white text-navy transition-opacity duration-500"
+          aria-hidden="true"
+        >
+          <div class="flex flex-col items-center gap-4">
+            <span class="size-10 animate-spin rounded-full border-4 border-navy/10 border-t-gold"></span>
+            <span class="font-display text-sm font-semibold text-navy/60">Cargando calendario…</span>
+          </div>
+        </div>)}
+
+        {
+          calendlySrc ? (
+            <div data-calendly-mount class="h-[1050px] sm:h-[760px] lg:h-[700px]" />
+          ) : (
+            <div class="relative grid h-[420px] place-items-center bg-white p-8 text-center text-navy sm:h-[520px]">
+              <div class="max-w-md">
+                <CalendarCheck class="mx-auto size-12 text-gold-600" aria-hidden="true" />
+                <p class="mt-4 font-display text-xl font-bold">Calendario de reservas</p>
+                <p class="mt-2 text-sm text-navy/60">
+                  Configurá <code class="rounded bg-paper px-1.5 py-0.5 font-mono text-xs">PUBLIC_CALENDLY_URL</code> para
+                  mostrar aquí tu agenda de Calendly.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <div
+      data-booked
+      hidden
+      role="status"
+      class="mx-auto mt-6 flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-5 py-4 text-center font-semibold text-gold"
+    >
+      <CircleCheck class="size-5 shrink-0" aria-hidden="true" />
+      ¡Listo! Tu llamada quedó agendada. Revisá tu email para ver la confirmación.
+    </div>
+
+    <p data-reveal class="mx-auto mt-8 max-w-2xl text-center text-base leading-relaxed text-white/80 sm:text-lg">
+      {booking.note[0]}<br class="hidden sm:block" />
+      {' '}{booking.note[1]}
+    </p>
+    <p data-reveal class="mt-6 text-center text-sm text-white/60 sm:text-base">
+      ¿No encontrás un horario o tenés dudas?
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-1 inline-flex items-center gap-1.5 font-semibold text-gold underline-offset-4 hover:underline"
+      >
+        <WhatsAppIcon class="size-4" /> Escribinos por WhatsApp
+      </a>
+    </p>
+  </div>
+</section>
