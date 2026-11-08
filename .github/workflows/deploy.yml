@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Manual only for now: the account's GitHub Actions are locked (billing).
+# Meanwhile deploy with `npm run deploy` (publishes dist/ to the gh-pages branch).
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

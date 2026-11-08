@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:gh-pages": "cross-env SITE_URL=https://aguslenga123.github.io BASE_PATH=/Enjoyyourlife astro build",
+    "deploy": "npm run build:gh-pages && gh-pages -d dist --dotfiles --nojekyll -m \"Deploy landing\""
   },
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.3.0",
@@ -24,6 +26,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^26.6.5",
+    "cross-env": "^10.1.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^6.0.3"
   }
 }
